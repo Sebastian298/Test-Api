@@ -6,10 +6,13 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllers().ConfigureApiBehaviorOptions(options => { options.InvalidModelStateResponseFactory = ModelStateValidator.ValidateModelState; }); ;
+builder.Services.AddControllersWithViews().AddNewtonsoftJson();
 builder.Services.AddSingleton<DapperContext>();
 builder.Services.AddScoped(typeof(ICategoryRepository<>), typeof(CategoryRepository<>));
 builder.Services.AddScoped<IDapperService, DapperService>();
 builder.Services.AddTransient<IBigqueryService, BigQueryService>();
+builder.Services.AddScoped<IDalcecService, DalcecService>();
+builder.Services.AddTransient<IDalcecRepository, DalcecRepository>();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

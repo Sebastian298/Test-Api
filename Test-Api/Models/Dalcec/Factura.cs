@@ -11,13 +11,13 @@ namespace Test_Api.Models.Dalcec
 								public string Ticket { get; set; }
 								public string Trailer { get; set; }
 								public string Pedimento { get; set; }
-								[JsonPropertyName("Reference")]
+								[JsonPropertyName("Referencia")]
 								public string Reference { get; set; }
 								[JsonPropertyName("Comentarios")]
 								public string Comments { get; set; }
 								[JsonPropertyName("Movimiento")]
 								public string Movement { get; set; }
-								[JsonPropertyName("Fecha de Movimiento")]
+								[JsonPropertyName("Fecha Movimiento")]
 								public string DateMovement { get; set; }
 								[JsonPropertyName("Descripcion")]
 								public string Description { get; set; }
@@ -33,7 +33,7 @@ namespace Test_Api.Models.Dalcec
 								public double Charges { get; set; }
 								[JsonPropertyName("Moneda")]
 								public string Currency { get; set; }
-								[JsonPropertyName("Referencia")]
+								[JsonPropertyName("Reference")]
 								public string Referencia { get; set; }
 								[JsonPropertyName("Fecha")]
 								public string Date { get; set; }

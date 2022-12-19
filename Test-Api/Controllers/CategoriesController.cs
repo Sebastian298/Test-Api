@@ -35,7 +35,7 @@ namespace Test_Api.Controllers
 																badResult.Success = false;
 																badResult.StatusCode = 500;
 																badResult.Description = ex.Message;
-																return StatusCode(500, res);
+																return StatusCode(500, badResult);
 												}
 								}
 
@@ -55,7 +55,7 @@ namespace Test_Api.Controllers
 																badResult.Success = false;
 																badResult.StatusCode = 500;
 																badResult.Description = ex.Message;
-																return StatusCode(500, res);
+																return StatusCode(500, badResult);
 												}
 								}
 
@@ -75,7 +75,7 @@ namespace Test_Api.Controllers
 																badResult.Success = false;
 																badResult.StatusCode = 500;
 																badResult.Description = ex.Message;
-																return StatusCode(500, res);
+																return StatusCode(500, badResult);
 												}
 								}
 
@@ -95,7 +95,7 @@ namespace Test_Api.Controllers
 																badResult.Success = false;
 																badResult.StatusCode = 500;
 																badResult.Description = ex.Message;
-																return StatusCode(500, res);
+																return StatusCode(500, badResult);
 												}
 								}
 
