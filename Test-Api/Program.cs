@@ -9,10 +9,10 @@ builder.Services.AddControllers().ConfigureApiBehaviorOptions(options => { optio
 builder.Services.AddControllersWithViews().AddNewtonsoftJson();
 builder.Services.AddSingleton<DapperContext>();
 builder.Services.AddScoped(typeof(ICategoryRepository<>), typeof(CategoryRepository<>));
-builder.Services.AddScoped<IDapperService, DapperService>();
+builder.Services.AddTransient<IDapperService, DapperService>();
 builder.Services.AddTransient<IBigqueryService, BigQueryService>();
 builder.Services.AddScoped<IDalcecService, DalcecService>();
-builder.Services.AddTransient<IDalcecRepository, DalcecRepository>();
+builder.Services.AddScoped<IDalcecRepository, DalcecRepository>();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

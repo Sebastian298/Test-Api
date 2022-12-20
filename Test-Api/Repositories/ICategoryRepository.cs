@@ -10,5 +10,6 @@ namespace Test_Api.Repositories
 								Task<GenericResponse<List<T>>> Update(Category category);
 								Task<GenericResponse<List<T>>> GetAll();
 								Task<GenericResponse<T>> GetById(string id);
+								Task<GenericResponse<List<T>>> GetCategoriesFromBigQuery();
 				}
 }

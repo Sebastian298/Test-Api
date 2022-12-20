@@ -79,6 +79,27 @@ namespace Test_Api.Controllers
 												}
 								}
 
+								[HttpGet("JsonFromBigQuery")]
+								public async Task<ActionResult> CategoriesFromBigQuery()
+								{
+												object res = new();
+												try
+												{
+																var result = await _categoryRepositoryGet.GetCategoriesFromBigQuery();
+																res = result;
+																return StatusCode(result.StatusCode, res);
+												}
+												catch (Exception ex)
+												{
+																var badResult = new GenericResponse<string>();
+																badResult.Success = false;
+																badResult.StatusCode = 500;
+																badResult.Description = ex.Message;
+																return StatusCode(500, badResult);
+												}
+								}
+
+
 								[HttpGet("{id}")]
 								public async Task<ActionResult> CategoriesById(string id)
 								{
