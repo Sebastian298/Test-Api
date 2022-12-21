@@ -38,6 +38,25 @@ namespace Test_Api.Controllers
 																return StatusCode(500, badResult);
 												}
 								}
+								[HttpPost("CreateCategoryInBigQuery")]
+								public async Task<ActionResult> CreateCategoryToBigQuery([FromBody] Category category)
+								{
+												object res = new();
+												try
+												{
+																var result = await _categoryRepository.CreateCategoryToBigQueryTable(category);
+																res = result;
+																return StatusCode(result.StatusCode, res);
+												}
+												catch (Exception ex)
+												{
+																var badResult = new GenericResponse<string>();
+																badResult.Success = false;
+																badResult.StatusCode = 500;
+																badResult.Description = ex.Message;
+																return StatusCode(500, badResult);
+												}
+								}
 
 								[HttpPut("Update")]
 								public async Task<ActionResult> UpdateCategory([FromBody] Category category)

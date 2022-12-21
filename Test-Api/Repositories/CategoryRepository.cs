@@ -1,4 +1,5 @@
 ﻿using Dapper;
+using Google.Cloud.BigQuery.V2;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.Data;
@@ -100,6 +101,36 @@ namespace Test_Api.Repositories
 												else
 												{
 																return new GenericResponse<List<T>>()
+																{
+																				Success = false,
+																				StatusCode = 500
+																};
+												}
+								}
+
+								public async Task<GenericResponse<T>> CreateCategoryToBigQueryTable(Category category)
+								{
+												StoredProcedureData qData = QueryHelper.GetBigQueryStoredProcedureData(_configuration, "QuerySettings:CategoriesRepository:InsertCategoryBq:Data");
+
+												List<BigQueryParameter> bqParameters = new();
+
+												bqParameters.Add(new BigQueryParameter("categoryId",BigQueryHelpers.GetDataType("string"),category.CategoryId));
+												bqParameters.Add(new BigQueryParameter("name", BigQueryHelpers.GetDataType("string"), category.Name));
+
+												var result = await _bigqueryService.ExecuteStoredProcedure(qData, bqParameters);
+												if (!(result.hasError))
+												{
+																dynamic data = (result.BigQueryResults.TotalRows > 0) ? JsonConvert.DeserializeObject<T>(result.BigQueryResults.FirstOrDefault()[0].ToString()) : null;
+																return new GenericResponse<T>()
+																{
+																				Success = true,
+																				StatusCode = 200,
+																				Content = data,
+																};
+												}
+												else
+												{
+																return new GenericResponse<T>()
 																{
 																				Success = false,
 																				StatusCode = 500

@@ -11,5 +11,6 @@ namespace Test_Api.Repositories
 								Task<GenericResponse<List<T>>> GetAll();
 								Task<GenericResponse<T>> GetById(string id);
 								Task<GenericResponse<List<T>>> GetCategoriesFromBigQuery();
+								Task<GenericResponse<T>> CreateCategoryToBigQueryTable(Category category);
 				}
 }
