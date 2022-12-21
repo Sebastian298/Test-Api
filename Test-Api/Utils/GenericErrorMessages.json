@@ -1,0 +1,10 @@
+{
+	"CategoriesRepository": {
+		"Create": {
+			"GeneralException": {
+				"i18Title": "analytics:categories.createCategory.genexceptiontitle",
+				"i18Message": "analytics:categories.createCategory.genexceptionmessage"
+			}
+		}
+	}
+}
