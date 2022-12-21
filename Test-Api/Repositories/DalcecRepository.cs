@@ -17,7 +17,8 @@ namespace Test_Api.Repositories
 								}
 								public async Task<GenericResponse<List<JObject>>> GetFacturasByFacData(string facData)
 								{
-												DalcecResponse result = await _dalcecService.GetRowsByFacData(facData);
+												string endpointKey = "WebServices:Dalcec:GetFacData";
+												DalcecResponse result = await _dalcecService.GetRowsByFacData(facData,endpointKey);
 
 												if (!result.HasError)
 												{

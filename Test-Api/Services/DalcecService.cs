@@ -7,12 +7,19 @@ namespace Test_Api.Services
 {
 				public class DalcecService : IDalcecService
 				{
-								public async Task<DalcecResponse> GetRowsByFacData(string facData)
+								private readonly IConfiguration _configuration;
+
+								public DalcecService(IConfiguration configuration)
+								{
+												_configuration = configuration;
+								}
+								public async Task<DalcecResponse> GetRowsByFacData(string facData,string endpointKey)
 								{
 												try
 												{
 																HttpClient client = new HttpClient();
-																string url = $"https://monitor.dalcec.com/direccion1.asmx/FacData?{facData}";
+																//string url = $"https://monitor.dalcec.com/direccion1.asmx/FacData?{facData}";
+																string url = $"{_configuration[$"{endpointKey}:url"]}{facData}";
 																HttpResponseMessage response = await client.GetAsync(url);
 																if (response.IsSuccessStatusCode)
 																{

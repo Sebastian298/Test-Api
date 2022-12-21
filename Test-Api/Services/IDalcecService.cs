@@ -4,6 +4,6 @@ namespace Test_Api.Services
 {
 				public interface IDalcecService
 				{
-								Task<DalcecResponse> GetRowsByFacData(string facData);
+								Task<DalcecResponse> GetRowsByFacData(string facData,string endpointKey);
 				}
 }
