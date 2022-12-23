@@ -83,14 +83,11 @@ namespace Test_Api.Repositories
 								{
 												StoredProcedureData qData = QueryHelper.GetBigQueryStoredProcedureData(_configuration, "QuerySettings:CategoriesRepository:GetCategoriesBq:Data");
 
-												BigQueryServiceResponse[] results = new BigQueryServiceResponse[2];
-												var res = await _bigqueryService.ExecuteStoredProcedure(qData, null);
-												results[0] = res;
-												results[1] = new BigQueryServiceResponse() { hasError = false };
+												BigQueryServiceResponse results = await _bigqueryService.ExecuteStoredProcedure(qData, null);
 
-												if (!results[0].hasError && !results[1].hasError)
+												if (!results.hasError)
 												{
-																dynamic data = (results[0].BigQueryResults.TotalRows > 0) ? JsonConvert.DeserializeObject<List<T>>(results[0].BigQueryResults.FirstOrDefault()[0].ToString()) : new JArray();
+																dynamic data = (results.BigQueryResults.TotalRows > 0) ? JsonConvert.DeserializeObject<List<T>>(results.BigQueryResults.FirstOrDefault()[0].ToString()) : new JArray();
 																return new GenericResponse<List<T>>()
 																{
 																				Success = true,

@@ -5,22 +5,23 @@ using Test_Api.Repositories;
 namespace Test_Api.Controllers
 {
 				[ApiController]
-				[Route("api/[controller]")]
-				public class DalcecWebServicesController : ControllerBase
+				[Route("api/invoices")]
+				public class InvoicesController : ControllerBase
 				{
-								private readonly IDalcecRepository _dalcecRepository;
+								private readonly IInvoiceRepository _invoiceRepository;
 
-								public DalcecWebServicesController(IDalcecRepository dalcecRepository)
+								public InvoicesController(IInvoiceRepository invoiceRepository)
 								{
-												_dalcecRepository = dalcecRepository;
+												_invoiceRepository = invoiceRepository;
 								}
-								[HttpGet("{facData}")]
-								public async Task<ActionResult> FacturasByFacData(string facData)
+
+								[HttpGet("InvoiceByDate/{date}")]
+								public async Task<ActionResult> GetInvoiceByDate(string date)
 								{
 												object res = new();
 												try
 												{
-																var result = await _dalcecRepository.GetFacturasByFacData(facData);
+																var result = await _invoiceRepository.GetInvoiceByDate(date);
 																res = result;
 																return StatusCode(result.StatusCode, res);
 												}

@@ -48,7 +48,7 @@ namespace Test_Api.Services
 
 																				BigQueryJob job = await bqClient.BigQueryClient.CreateQueryJobAsync(sql: query, parameters: bqParameters, options: new QueryOptions { UseQueryCache = false });
 
-																				var data = await job.GetQueryResultsAsync();
+																				BigQueryResults data = await job.GetQueryResultsAsync();
 																				await job.PollUntilCompletedAsync();
 																				serviceResponse.hasError = false;
 																				serviceResponse.BigQueryResults = data;

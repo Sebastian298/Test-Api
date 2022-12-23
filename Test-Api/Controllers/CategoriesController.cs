@@ -37,7 +37,7 @@ namespace Test_Api.Controllers
 																badResult.Description = ex.Message;
 																return StatusCode(500, badResult);
 												}
-								}
+								}         
 								[HttpPost("CreateCategoryInBigQuery")]
 								public async Task<ActionResult> CreateCategoryToBigQuery([FromBody] Category category)
 								{
