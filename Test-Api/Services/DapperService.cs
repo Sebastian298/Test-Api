@@ -1,4 +1,5 @@
 ﻿using Dapper;
+using Newtonsoft.Json.Linq;
 using System.Data;
 using System.Xml.Linq;
 using Test_Api.Models.Queries;
@@ -26,10 +27,11 @@ namespace Test_Api.Services
 																				if (hasArray)
 																				{
 																								response = await connection.QueryAsync<T>(spName, parameters, commandType: CommandType.StoredProcedure);
+
 																				}
 																				else
 																				{
-																								response = await connection.QueryFirstAsync<T>(spName, parameters, commandType: CommandType.StoredProcedure);
+																								response = await connection.QuerySingleOrDefaultAsync<T>(spName, parameters, commandType: CommandType.StoredProcedure);
 																				}
 
 																				return new QueryServiceResponse

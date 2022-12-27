@@ -1,8 +1,8 @@
-﻿namespace Test_Api.Utils
+﻿namespace Test_Api.Constants
 {
 				public class MessageSetting
 				{
-								enum MessageTypes
+								public enum MessageTypes
 								{
 												danger,
 												warning,
@@ -14,7 +14,7 @@
 												light
 								}
 
-								enum HttpStatusCodes
+								public enum HttpStatusCodes
 								{
 												Ok = 200,
 												BadRequest = 400,

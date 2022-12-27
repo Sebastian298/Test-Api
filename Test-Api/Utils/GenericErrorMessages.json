@@ -1,9 +1,71 @@
 {
-	"CategoriesRepository": {
+	"ModelStateValidator": {
+		"ValidationModelState": {
+			"GeneralException": {
+				"i18Title": "analytics:models.modelState.genexceptiontitle",
+				"i18Message": "analytics:models.modelState.genexceptionmessage"
+			}
+		}
+	},
+	"Categories": {
 		"Create": {
 			"GeneralException": {
-				"i18Title": "analytics:categories.createCategory.genexceptiontitle",
-				"i18Message": "analytics:categories.createCategory.genexceptionmessage"
+				"i18Title": "analytics:categories.create.genexceptiontitle",
+				"i18Message": "analytics:categories.create.genexceptionmessage"
+			},
+			"CategoryAlreadyExists": {
+				"i18Title": "analytics:categories.create.alreadyexisttitle",
+				"i18Message": "analytics:categories.create.alreadyexistmessage"
+			}
+		},
+		"InsertToBqTable": {
+			"GeneralException": {
+				"i18Title": "analytics:categories.insertToBqTable.genexceptiontitle",
+				"i18Message": "analytics:categories.insertToBqTable.genexceptionmessage"
+			},
+			"CategoryAlreadyExists": {
+				"i18Title": "analytics:categories.insertToBqTable.alreadyexisttitle",
+				"i18Message": "analytics:categories.insertToBqTable.alreadyexistmessage"
+			}
+		},
+		"Update": {
+			"GeneralException": {
+				"i18Title": "analytics:categories.update.genexceptiontitle",
+				"i18Message": "analytics:categories.update.genexceptionmessage"
+			},
+			"CategoryNotExist": {
+				"i18Title": "analytics:categories.update.notexisttitle",
+				"i18Message": "analytics:categories.update.notexistmessage"
+			}
+		},
+		"GetById": {
+			"GeneralException": {
+				"i18Title": "analytics:categories.getById.genexceptiontitle",
+				"i18Message": "analytics:categories.getById.genexceptionmessage"
+			},
+			"EmptyResponse": {
+				"i18Title": "analytics:categories.getById.emptyresponsetitle",
+				"i18Message": "analytics:categories.getById.emptyresponsemessage"
+			}
+		},
+		"GetAll": {
+			"GeneralException": {
+				"i18Title": "analytics:categories.getAll.genexceptiontitle",
+				"i18Message": "analytics:categories.getAll.genexceptionmessage"
+			}
+		},
+		"GetAllBq": {
+			"GeneralException": {
+				"i18Title": "analytics:categories.GetAllBq.genexceptiontitle",
+				"i18Message": "analytics:categories.GetAllBq.genexceptionmessage"
+			}
+		}
+	},
+	"Invoices": {
+		"InvoiceByDate": {
+			"GeneralException": {
+				"i18Title": "analytics:invoices.invoiceByDate.genexceptiontitle",
+				"i18Message": "analytics:invoices.invoiceByDate.genexceptionmessage"
 			}
 		}
 	}

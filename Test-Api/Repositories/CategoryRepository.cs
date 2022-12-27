@@ -1,5 +1,6 @@
 ﻿using Dapper;
 using Google.Cloud.BigQuery.V2;
+using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.Data;
@@ -9,6 +10,7 @@ using Test_Api.Models.ResponseModels;
 using Test_Api.Models.Responses;
 using Test_Api.Models.StoreModels;
 using Test_Api.Services;
+using static Test_Api.Constants.MessageSetting;
 
 namespace Test_Api.Repositories
 {
@@ -17,6 +19,7 @@ namespace Test_Api.Repositories
 								private readonly IConfiguration _configuration;
 								private readonly IDapperService _dapperService;
 								private readonly IBigqueryService _bigqueryService;
+								private readonly MessageErrorBuilder<GenericCrud> messageErrorBuilders = new MessageErrorBuilder<GenericCrud>();
 
 								public CategoryRepository(IConfiguration configuration,IDapperService dapperService,IBigqueryService bigqueryService)
 								{
@@ -43,10 +46,14 @@ namespace Test_Api.Repositories
 												}
 												else
 												{
+																GenericResponseData messages = messageErrorBuilders.GetMessageList("Categories", "GetAll", "GeneralException",MessageTypes.danger.ToString(),null,result.Message);
+
 																return new GenericResponse<List<T>>()
 																{
+																				Success = false,
 																				StatusCode = 500,
-																				Description = result.Message
+																				Content = new List<T>(),
+																				Messages = messages
 																};
 												}
 								}
@@ -58,10 +65,22 @@ namespace Test_Api.Repositories
 												DynamicParameters dapperParams = new DynamicParameters();
 
 												dapperParams.Add("@CategoryId", id, DbType.String);
+												
 												QueryServiceResponse result = await _dapperService.ActionsFromStoredProcedureToModel<T>(Qdata, dapperParams);
-
+												
 												if (!result.HasError)
 												{
+																if (result.Results is null)
+																{
+																				GenericResponseData messages = messageErrorBuilders.GetMessageList("Categories", "GetById", "EmptyResponse", MessageTypes.info.ToString(), null, result.Message);
+
+																				return new GenericResponse<T>()
+																				{
+																								Success = false,
+																								StatusCode = 500,
+																								Messages = messages
+																				};
+																}
 																return new GenericResponse<T>()
 																{
 																				Success = true,
@@ -71,10 +90,14 @@ namespace Test_Api.Repositories
 												}
 												else
 												{
+
+																GenericResponseData messages = messageErrorBuilders.GetMessageList("Categories", "GetById", "GeneralException", MessageTypes.danger.ToString(), null, result.Message);
+
 																return new GenericResponse<T>()
 																{
+																				Success = false,
 																				StatusCode = 500,
-																				Description = result.Message
+																				Messages = messages
 																};
 												}
 								}
@@ -97,10 +120,14 @@ namespace Test_Api.Repositories
 												}
 												else
 												{
+																GenericResponseData messages = messageErrorBuilders.GetMessageList("Categories", "GetAllBq", "GeneralException", MessageTypes.danger.ToString(), null, results.message);
+
 																return new GenericResponse<List<T>>()
 																{
 																				Success = false,
-																				StatusCode = 500
+																				StatusCode = 500,
+																				Content = new List<T>(),
+																				Messages = messages
 																};
 												}
 								}
@@ -127,10 +154,13 @@ namespace Test_Api.Repositories
 												}
 												else
 												{
+																GenericResponseData messages = messageErrorBuilders.GetMessageList("Categories", "InsertToBqTable", "GeneralException", MessageTypes.danger.ToString(), null, result.message);
+
 																return new GenericResponse<T>()
 																{
 																				Success = false,
-																				StatusCode = 500
+																				StatusCode = 500,
+																				Messages = messages
 																};
 												}
 								}
@@ -143,7 +173,9 @@ namespace Test_Api.Repositories
 
 												dapperParams.Add("@CategoryId", category.CategoryId, DbType.String);
 												dapperParams.Add("@Name", category.Name, DbType.String);
+
 												QueryServiceResponse result = await _dapperService.GetDataFromStoredProcedureInJsonString(Qdata, dapperParams);
+
 												if (!result.HasError)
 												{
 																string ResultString = $"{{\"Success\": true,\"StatusCode\":200, \"Content\":{result.Results}, \"Description\":\"Successful operation\"}}";
@@ -152,14 +184,18 @@ namespace Test_Api.Repositories
 												}
 												else
 												{
+																GenericResponseData messages = messageErrorBuilders.GetMessageList("Categories", "Create", "GeneralException", MessageTypes.danger.ToString(), null, result.Message);
+
 																return new GenericResponse<List<T>>()
 																{
+																				Success = false,
 																				StatusCode = 500,
-																				Description = result.Message
+																				Content = new List<T>(),
+																				Messages = messages
 																};
 												}
 								}
-
+								 
 								public async Task<GenericResponse<List<T>>> Update(Category category)
 								{
 												StoredProcedureData Qdata = QueryHelper.GetConfigurationStoredProcedure(_configuration, "QuerySettings:CategoriesRepository:Update:Data");
@@ -177,10 +213,14 @@ namespace Test_Api.Repositories
 												}
 												else
 												{
+																GenericResponseData messages = messageErrorBuilders.GetMessageList("Categories", "Update", "GeneralException", MessageTypes.danger.ToString(), null, result.Message);
+
 																return new GenericResponse<List<T>>()
 																{
+																				Success = false,
 																				StatusCode = 500,
-																				Description = result.Message
+																				Content=new List<T>(),
+																				Messages = messages
 																};
 												}
 								}

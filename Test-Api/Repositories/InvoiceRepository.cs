@@ -1,7 +1,10 @@
 ﻿using Newtonsoft.Json.Linq;
+using Test_Api.Helpers;
 using Test_Api.Models.ResponseModels;
+using Test_Api.Models.Responses;
 using Test_Api.Models.StoreModels;
 using Test_Api.Services;
+using static Test_Api.Constants.MessageSetting;
 
 namespace Test_Api.Repositories
 {
@@ -9,7 +12,7 @@ namespace Test_Api.Repositories
 				{
 								private readonly IConfiguration _configuration;
 								private readonly IHttpCrudService _httpCrudService;
-
+								private readonly MessageErrorBuilder<GenericCrud> messageErrorBuilders = new MessageErrorBuilder<GenericCrud>();
 								public InvoiceRepository(IConfiguration configuration,IHttpCrudService httpCrudService)
 								{
 												_configuration = configuration;
@@ -31,10 +34,13 @@ namespace Test_Api.Repositories
 												}
 												else
 												{
+																GenericResponseData messages = messageErrorBuilders.GetMessageList("Invoices", "InvoiceByDate", "GeneralException", MessageTypes.danger.ToString(), null, response.Message);
+
 																return new GenericResponse<List<JObject>>()
 																{
+																				Success = false,
 																				StatusCode = 500,
-																				Description = response.Message
+																				Messages = messages
 																};
 												}
 								}

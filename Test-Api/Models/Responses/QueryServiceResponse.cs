@@ -22,4 +22,11 @@ namespace Test_Api.Models.ResponseModels
 								public string message { get; set; }
 								public BigQueryClient BigQueryClient { get; set; }
 				}
+
+				public class HttpServiceResponse
+				{
+								public bool HasError { get; set; }
+								public string Message { get; set; }
+								public dynamic Results { get; set; }
+				}
 }

@@ -33,7 +33,6 @@ namespace Test_Api.Repositories
 																return new GenericResponse<List<Product>>()
 																{
 																				StatusCode = 500,
-																				Description = reponse.Message
 																};
 												}
 								}
@@ -56,7 +55,6 @@ namespace Test_Api.Repositories
 																return new GenericResponse<dynamic>()
 																{
 																				StatusCode = 500,
-																				Description = response.Message
 																};
 												}
 								}
@@ -79,7 +77,6 @@ namespace Test_Api.Repositories
 																return new GenericResponse<dynamic>()
 																{
 																				StatusCode = 500,
-																				Description = response.Message
 																}; 
 												}
 								}
@@ -103,7 +100,6 @@ namespace Test_Api.Repositories
 																return new GenericResponse<dynamic>()
 																{
 																				StatusCode = 500,
-																				Description = response.Message
 																};
 												}
 								}
@@ -127,7 +123,6 @@ namespace Test_Api.Repositories
 																return new GenericResponse<dynamic>()
 																{
 																				StatusCode = 500,
-																				Description = response.Message
 																};
 												}
 								}

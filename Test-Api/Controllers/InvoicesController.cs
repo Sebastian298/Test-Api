@@ -1,6 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json.Linq;
+using Test_Api.Helpers;
 using Test_Api.Models.ResponseModels;
+using Test_Api.Models.Responses;
 using Test_Api.Repositories;
+using static Test_Api.Constants.MessageSetting;
 
 namespace Test_Api.Controllers
 {
@@ -18,20 +22,18 @@ namespace Test_Api.Controllers
 								[HttpGet("InvoiceByDate/{date}")]
 								public async Task<ActionResult> GetInvoiceByDate(string date)
 								{
-												object res = new();
+												MessageErrorBuilder<JObject> messageErrorBuilder = new();
 												try
 												{
 																var result = await _invoiceRepository.GetInvoiceByDate(date);
-																res = result;
+															 object res = result;
 																return StatusCode(result.StatusCode, res);
 												}
 												catch (Exception ex)
 												{
-																var badResult = new GenericResponse<string>();
-																badResult.Success = false;
-																badResult.StatusCode = 500;
-																badResult.Description = ex.Message;
-																return StatusCode(500, badResult);
+																var error = messageErrorBuilder.GetGenericErrorResponse(500, "Invoices", "InvoiceByDate", "GeneralException", MessageTypes.danger.ToString(), null, ex.Message);
+
+																return StatusCode(error.StatusCode, error);
 												}
 								}
 				}

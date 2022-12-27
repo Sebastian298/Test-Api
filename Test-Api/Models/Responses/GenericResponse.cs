@@ -2,7 +2,6 @@
 {
 				public class GenericResponseData
 				{
-								public string Language { get; set; }
 								public string Type { get; set; }
 								public string Title { get; set; }
 								public string Message { get; set; }
@@ -13,9 +12,7 @@
 				{
 								public bool Success { get; set; }
 								public int StatusCode { get; set; }
-								public string Description { get; set; }
 								public T Content { get; set; }
-
-								public List<GenericResponseData> Messages { get; set; }
+								public GenericResponseData Messages { get; set; }
 				}
 }

@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Test_Api.Helpers;
 using Test_Api.Models.ResponseModels;
+using static Test_Api.Constants.MessageSetting;
 
 namespace Test_Api.Attributes
 {
@@ -15,12 +17,11 @@ namespace Test_Api.Attributes
 												{
 																errorSerialized = string.Join(" | ", modelStateEntries.Select(x => x.Value.Errors.First().ErrorMessage).ToList());
 												}
+												MessageErrorBuilder<bool> messageErrorBuilders = new();
 
-												var res = new GenericResponse<string>();
-												res.Success = false;
-												res.StatusCode = 400;
-												res.Description = errorSerialized;
-												return new BadRequestObjectResult(res);
+												var error = messageErrorBuilders.GetGenericErrorResponse(400, "ModelStateValidator", "ValidationModelState", "GeneralException", MessageTypes.warning.ToString(), null, (errorSerialized != "") ? errorSerialized : null);
+
+												return new BadRequestObjectResult(error);
 								}
 				}
 }
