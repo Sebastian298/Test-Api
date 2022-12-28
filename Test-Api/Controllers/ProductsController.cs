@@ -1,8 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Formats.Asn1;
+using Test_Api.Helpers;
 using Test_Api.Models.ResponseModels;
+using Test_Api.Models.Responses;
 using Test_Api.Models.StoreModels;
 using Test_Api.Repositories;
+using static Test_Api.Constants.MessageSetting;
 
 namespace Test_Api.Controllers
 {
@@ -10,109 +13,101 @@ namespace Test_Api.Controllers
 				[Route("api/products")]
 				public class ProductsController : ControllerBase
 				{
-								private readonly IFakeStoreRepository _fakeStoreRepository;
+								private readonly IProductRepository _productRepository;
 
-								public ProductsController(IFakeStoreRepository fakeStoreRepository)
+								public ProductsController(IProductRepository productRepository)
 								{
-												_fakeStoreRepository = fakeStoreRepository;
+												_productRepository = productRepository;
 								}
 
 								[HttpGet]
 								public async Task<ActionResult> GetAllProducts()
 								{
-												object res = new();
+												MessageErrorBuilder<Product> messageErrorBuilder = new();
 												try
 												{
-																var result = await _fakeStoreRepository.GetAllProducts();
-																res = result;
+																var result = await _productRepository.GetAllProducts();
+																object res = result;
 																return StatusCode(result.StatusCode, res);
 												}
 												catch (Exception ex)
 												{
-																var badResult = new GenericResponse<string>();
-																badResult.Success = false;
-																badResult.StatusCode = 500;
-																//badResult.Description = ex.Message;
-																return StatusCode(500, badResult);
+																var error = messageErrorBuilder.GetGenericErrorResponse(500, "Products", "GetAll", "GeneralException", MessageTypes.danger.ToString(), null, ex.Message);
+
+																return StatusCode(error.StatusCode, error);
 												}
 								}
 
 								[HttpGet("{id:int}")]
-								public async Task<ActionResult> GetProductrById(int id)
+								public async Task<ActionResult> GetProductById(int id)
 								{
-												object res = new();
+												MessageErrorBuilder<dynamic> messageErrorBuilder = new();
 												try
 												{
-																var result = await _fakeStoreRepository.GetProductById(id);
-																res = result;
+																var result = await _productRepository.GetProductById(id);
+																object res = result;
 																return StatusCode(result.StatusCode, res);
 												}
 												catch (Exception ex)
 												{
-																var badResult = new GenericResponse<string>();
-																badResult.Success = false;
-																badResult.StatusCode = 500;
-																//badResult.Description = ex.Message;
-																return StatusCode(500, badResult);
+																var error = messageErrorBuilder.GetGenericErrorResponse(500, "Products", "GetById", "GeneralException", MessageTypes.danger.ToString(), null, ex.Message);
+
+																return StatusCode(error.StatusCode, error);
 												}
 								}
+
 								[HttpPost("Create")]
 								public async Task<ActionResult> AddProduct([FromBody] Product product)
 								{
-												object res = new();
+												MessageErrorBuilder<dynamic> messageErrorBuilder = new();
 												try
 												{
-																var result = await _fakeStoreRepository.AddProduct(product);
-																res = result;
+																var result = await _productRepository.AddProduct(product);
+																object res = result;
 																return StatusCode(result.StatusCode, res);
 												}
 												catch (Exception ex)
 												{
-																var badResult = new GenericResponse<string>();
-																badResult.Success = false;
-																badResult.StatusCode = 500;
-																//badResult.Description = ex.Message;
-																return StatusCode(500, badResult);
+																var error = messageErrorBuilder.GetGenericErrorResponse(500, "Products", "Add", "GeneralException", MessageTypes.danger.ToString(), null, ex.Message);
+
+																return StatusCode(error.StatusCode, error);
 												}
 								}
 
 								[HttpPut("Update/{id:int}")]
 								public async Task<ActionResult> UpdateProduct(int id, [FromBody] Product product)
 								{
-												object res = new();
+												MessageErrorBuilder<dynamic> messageErrorBuilder = new();
 												try
 												{
-																var result = await _fakeStoreRepository.UpdateProduct(id, product);
-																res = result;
+																var result = await _productRepository.UpdateProduct(id, product);
+																object res = result;
 																return StatusCode(result.StatusCode, res);
 												}
 												catch (Exception ex)
 												{
-																var badResult = new GenericResponse<string>();
-																badResult.Success = false;
-																badResult.StatusCode = 500;
-																//badResult.Description = ex.Message;
-																return StatusCode(500, badResult);
+																var error = messageErrorBuilder.GetGenericErrorResponse(500, "Products", "Update", "GeneralException", MessageTypes.danger.ToString(), null, ex.Message);
+
+																return StatusCode(error.StatusCode, error);
 												}
 								}
 
 								[HttpDelete("{id:int}")]
 								public async Task<ActionResult> DeleteProduct(int id)
 								{
-												object res = new();
+												MessageErrorBuilder<dynamic> messageErrorBuilder = new();
 												try
 												{
-																var result = await _fakeStoreRepository.DeleteProduct(id);
-																res = result;
+																
+																var result = await _productRepository.DeleteProduct(id);
+																object res = result;
 																return StatusCode(result.StatusCode, res);
 												}
 												catch (Exception ex)
 												{
-																var badResult = new GenericResponse<string>();
-																badResult.Success = false;
-																badResult.StatusCode = 500;
-																//badResult.Description = ex.Message;
-																return StatusCode(500, badResult);
+																var error = messageErrorBuilder.GetGenericErrorResponse(500, "Products", "Delete", "GeneralException", MessageTypes.danger.ToString(), null, ex.Message);
+
+																return StatusCode(error.StatusCode, error);
 												}
 								}
 				}

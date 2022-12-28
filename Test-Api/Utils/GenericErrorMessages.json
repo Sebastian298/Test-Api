@@ -61,6 +61,54 @@
 			}
 		}
 	},
+	"Products": {
+		"Add": {
+			"GeneralException": {
+				"i18Title": "analytics:products.add.genexceptiontitle",
+				"i18Message": "analytics:products.add.genexceptionmessage"
+			},
+			"ProductAlreadyExists": {
+				"i18Title": "analytics:products.add.alreadyexisttitle",
+				"i18Message": "analytics:products.add.alreadyexistmessage"
+			}
+		},
+		"Update": {
+			"GeneralException": {
+				"i18Title": "analytics:products.update.genexceptiontitle",
+				"i18Message": "analytics:products.update.genexceptionmessage"
+			},
+			"ProductNotExist": {
+				"i18Title": "analytics:products.update.notexisttitle",
+				"i18Message": "analytics:products.update.notexistmessage"
+			}
+		},
+		"Delete": {
+			"GeneralException": {
+				"i18Title": "analytics:products.delete.genexceptiontitle",
+				"i18Message": "analytics:products.delete.genexceptionmessage"
+			},
+			"ProductNotExist": {
+				"i18Title": "analytics:products.update.notexisttitle",
+				"i18Message": "analytics:products.update.notexistmessage"
+			}
+		},
+		"GetAll": {
+			"GeneralException": {
+				"i18Title": "analytics:products.getAll.genexceptiontitle",
+				"i18Message": "analytics:products.getAll.genexceptionmessage"
+			}
+		},
+		"GetById": {
+			"GeneralException": {
+				"i18Title": "analytics:products.getById.genexceptiontitle",
+				"i18Message": "analytics:products.getById.genexceptionmessage"
+			},
+			"EmptyResponse": {
+				"i18Title": "analytics:products.getById.emptyresponsetitle",
+				"i18Message": "analytics:products.getById.emptyresponsemessage"
+			}
+		}
+	},
 	"Invoices": {
 		"InvoiceByDate": {
 			"GeneralException": {

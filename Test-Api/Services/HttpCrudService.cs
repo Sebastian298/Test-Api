@@ -45,7 +45,8 @@ namespace Test_Api.Services
 																}
 																else
 																{
-																				return new HttpServiceResponse { HasError = true, Message = "A error ocurred in web service" };
+																				var results = $"EndPoint: {url}, StatusCode: {response.StatusCode}, Message: {await response.Content.ReadAsStringAsync()}";
+																				return new HttpServiceResponse { HasError = true, Message = results };
 																}
 												}
 												catch (Exception ex)
@@ -81,7 +82,8 @@ namespace Test_Api.Services
 																}
 																else
 																{
-																				return new HttpServiceResponse { HasError = true, Message = "A error ocurred in web service" };
+																				var results = $"EndPoint: {url}, StatusCode: {response.StatusCode}, Message: {await response.Content.ReadAsStringAsync()}";
+																				return new HttpServiceResponse { HasError = true, Message = results };
 																}
 												}
 												catch (Exception ex)
@@ -118,7 +120,8 @@ namespace Test_Api.Services
 																}
 																else
 																{
-																				return new HttpServiceResponse { HasError = true, Message = "A error ocurred in web service" };
+																				var results = $"EndPoint: {url}, StatusCode: {response.StatusCode}, Message: {await response.Content.ReadAsStringAsync()}";
+																				return new HttpServiceResponse { HasError = true, Message = results };
 																}
 												}
 												catch (Exception ex)
@@ -155,7 +158,8 @@ namespace Test_Api.Services
 																}
 																else
 																{
-																				return new HttpServiceResponse { HasError = true, Message = "A error ocurred in web service" };
+																				var results = $"EndPoint: {url}, StatusCode: {response.StatusCode}, Message: {await response.Content.ReadAsStringAsync()}";
+																				return new HttpServiceResponse { HasError = true, Message = results };
 																}
 
 												}
@@ -190,7 +194,8 @@ namespace Test_Api.Services
 																}
 																else
 																{
-																				return new HttpServiceResponse { HasError = true, Message = "A error ocurred in web service" };
+																				var results = $"EndPoint: {url}, StatusCode: {response.StatusCode}, Message: {await response.Content.ReadAsStringAsync()}";
+																				return new HttpServiceResponse { HasError = true, Message = results };
 																}
 												}
 												catch (Exception ex)

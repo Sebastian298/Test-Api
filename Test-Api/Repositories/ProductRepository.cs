@@ -1,38 +1,47 @@
-﻿using Test_Api.Models.ResponseModels;
+﻿using Test_Api.Helpers;
+using Test_Api.Models.ResponseModels;
+using Test_Api.Models.Responses;
 using Test_Api.Models.StoreModels;
 using Test_Api.Services;
+using static Test_Api.Constants.MessageSetting;
 
 namespace Test_Api.Repositories
 {
-				public class FakeStoreRepository : IFakeStoreRepository
+				public class ProductRepository : IProductRepository
 				{
 								private readonly IConfiguration _configuration;
 								private readonly IHttpCrudService _httpCrudService;
+								private readonly MessageErrorBuilder<GenericCrud> messageErrorBuilders = new MessageErrorBuilder<GenericCrud>();
 
-								public FakeStoreRepository(IConfiguration configuration,IHttpCrudService httpCrudService)
+								public ProductRepository(IConfiguration configuration, IHttpCrudService httpCrudService)
 								{
-											  _configuration = configuration;
+												_configuration = configuration;
 												_httpCrudService = httpCrudService;
 								}
 
 								public async Task<GenericResponse<List<Product>>> GetAllProducts()
 								{
 												string url = _configuration["WebServices:FakeStoreApi:GetAllProducts:url"];
-												HttpServiceResponse reponse = await _httpCrudService.GetAsync<Product>(url,true);
-												if (!reponse.HasError)
+												HttpServiceResponse response = await _httpCrudService.GetAsync<Product>(url, true);
+												if (!response.HasError)
 												{
 																return new GenericResponse<List<Product>>()
 																{
 																				Success = true,
 																				StatusCode = 200,
-																				Content = reponse.Results
+																				Content = response.Results
 																};
 												}
 												else
 												{
+																GenericResponseData messages = messageErrorBuilders.GetMessageList("Products", "GetAll", "GeneralException", MessageTypes.danger.ToString(), null, response.Message);
+
 																return new GenericResponse<List<Product>>()
 																{
+																				Success = false,
 																				StatusCode = 500,
+																				Content = new List<Product>(),
+																				Messages = messages
 																};
 												}
 								}
@@ -43,18 +52,37 @@ namespace Test_Api.Repositories
 												HttpServiceResponse response = await _httpCrudService.GetAsync(url);
 												if (!response.HasError)
 												{
-																return new GenericResponse<dynamic>()
+																if (response.Results is not null)
 																{
-																				Success = true,
-																				StatusCode = 200,
-																				Content = response.Results
-																};
+																				return new GenericResponse<dynamic>()
+																				{
+																								Success = true,
+																								StatusCode = 200,
+																								Content = response.Results
+																				};
+																}
+																else
+																{
+																				GenericResponseData messages = messageErrorBuilders.GetMessageList("Products", "GetById", "EmptyResponse", MessageTypes.info.ToString(), null, response.Message);
+
+																				return new GenericResponse<dynamic>()
+																				{
+																								Success = false,
+																								StatusCode = 200,
+																								Messages = messages
+																				};
+																}
+																
 												}
 												else
 												{
+																GenericResponseData messages = messageErrorBuilders.GetMessageList("Products", "GetById", "GeneralException", MessageTypes.danger.ToString(), null, response.Message);
+
 																return new GenericResponse<dynamic>()
 																{
+																				Success = false,
 																				StatusCode = 500,
+																				Messages = messages
 																};
 												}
 								}
@@ -74,10 +102,14 @@ namespace Test_Api.Repositories
 												}
 												else
 												{
+																GenericResponseData messages = messageErrorBuilders.GetMessageList("Products", "Add", "GeneralException", MessageTypes.danger.ToString(), null, response.Message);
+
 																return new GenericResponse<dynamic>()
 																{
+																				Success = false,
 																				StatusCode = 500,
-																}; 
+																				Messages = messages
+																};
 												}
 								}
 
@@ -97,9 +129,13 @@ namespace Test_Api.Repositories
 												}
 												else
 												{
+																GenericResponseData messages = messageErrorBuilders.GetMessageList("Products", "Update", "GeneralException", MessageTypes.danger.ToString(), null, response.Message);
+
 																return new GenericResponse<dynamic>()
 																{
+																				Success = false,
 																				StatusCode = 500,
+																				Messages = messages
 																};
 												}
 								}
@@ -120,9 +156,13 @@ namespace Test_Api.Repositories
 												}
 												else
 												{
+																GenericResponseData messages = messageErrorBuilders.GetMessageList("Products", "Delete", "GeneralException", MessageTypes.danger.ToString(), null, response.Message);
+
 																return new GenericResponse<dynamic>()
 																{
+																				Success = false,
 																				StatusCode = 500,
+																				Messages = messages
 																};
 												}
 								}

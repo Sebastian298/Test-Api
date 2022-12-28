@@ -96,7 +96,7 @@ namespace Test_Api.Repositories
 																return new GenericResponse<T>()
 																{
 																				Success = false,
-																				StatusCode = 500,
+																				StatusCode = 200,
 																				Messages = messages
 																};
 												}
