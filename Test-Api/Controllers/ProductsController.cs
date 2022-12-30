@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Formats.Asn1;
+using Test_Api.Attributes.Authorization;
 using Test_Api.Helpers;
 using Test_Api.Models.ResponseModels;
 using Test_Api.Models.Responses;
@@ -9,6 +10,8 @@ using static Test_Api.Constants.MessageSetting;
 
 namespace Test_Api.Controllers
 {
+				[ApiExplorerSettings(GroupName = "Products")]
+				[TypeFilter(typeof(AuthorizeAttribute))]
 				[ApiController]
 				[Route("api/products")]
 				public class ProductsController : ControllerBase

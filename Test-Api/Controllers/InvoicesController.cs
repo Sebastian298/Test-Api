@@ -1,13 +1,14 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json.Linq;
+using Test_Api.Attributes.Authorization;
 using Test_Api.Helpers;
-using Test_Api.Models.ResponseModels;
-using Test_Api.Models.Responses;
 using Test_Api.Repositories;
 using static Test_Api.Constants.MessageSetting;
 
 namespace Test_Api.Controllers
 {
+				[ApiExplorerSettings(GroupName = "Invoices")]
+				[TypeFilter(typeof(AuthorizeAttribute))]
 				[ApiController]
 				[Route("api/invoices")]
 				public class InvoicesController : ControllerBase

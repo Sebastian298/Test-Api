@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Test_Api.Attributes.Authorization;
 using Test_Api.Helpers;
 using Test_Api.Models.ResponseModels;
 using Test_Api.Models.Responses;
@@ -8,6 +9,8 @@ using static Test_Api.Constants.MessageSetting;
 
 namespace Test_Api.Controllers
 {
+				[ApiExplorerSettings(GroupName = "Categories")]
+				[TypeFilter(typeof(AuthorizeAttribute))]
 				[ApiController]
 				[Route("api/categories")]
 				public class CategoriesController : ControllerBase

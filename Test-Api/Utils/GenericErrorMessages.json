@@ -116,5 +116,17 @@
 				"i18Message": "analytics:invoices.invoiceByDate.genexceptionmessage"
 			}
 		}
+	},
+	"AuthorizeAttribute": {
+		"OnAuthorization": {
+			"GeneralException": {
+				"i18Title": "analytics:authorizeattribute.generalException.genexceptiontitle",
+				"i18Message": "analytics:authorizeattribute.generalException.genexceptionmessage"
+			},
+			"InvalidToken": {
+				"i18Title": "analytics:authorizeattribute.invalidToken.genexceptiontitle",
+				"i18Message": "analytics:authorizeattribute.invalidToken.genexceptionmessage"
+			}
+		}
 	}
 }
